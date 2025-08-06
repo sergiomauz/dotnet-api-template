@@ -3,18 +3,18 @@ using Microsoft.Extensions.Options;
 using SQLitePCL;
 
 
-namespace Application.ErrorsCatalog
+namespace Application.ErrorCatalog
 {
-    public interface IErrorsCatalogService
+    public interface IErrorCatalogService
     {
         ErrorModel? GetErrorByCode(CodePropertyNamePair codePropertyNamePair);
     }
 
-    public class ErrorsCatalogService : IErrorsCatalogService
+    public class ErrorCatalogService : IErrorCatalogService
     {
         private readonly Dictionary<string, ErrorModel> _errors;
 
-        public ErrorsCatalogService(IOptions<ErrorsCatalogConfigurations> errorsCatalogConfigurations)
+        public ErrorCatalogService(IOptions<ErrorCatalogConfigurations> errorsCatalogConfigurations)
         {
             Batteries.Init();
             var configurations = errorsCatalogConfigurations.Value;

@@ -5,7 +5,7 @@ using Microsoft.Extensions.DependencyInjection;
 using FluentValidation;
 using MediatR;
 using Application.Commons.Behaviours;
-using Application.ErrorsCatalog;
+using Application.ErrorCatalog;
 
 
 namespace Application
@@ -35,8 +35,8 @@ namespace Application
 
             // Error catalog service
             var errorsCatalogSection = configuration.GetSection("ErrorsCatalog");
-            services.Configure<ErrorsCatalogConfigurations>(errorsCatalogSection);
-            services.AddSingleton<IErrorsCatalogService, ErrorsCatalogService>();
+            services.Configure<ErrorCatalogConfigurations>(errorsCatalogSection);
+            services.AddSingleton<IErrorCatalogService, ErrorCatalogService>();
 
             //
             return services;

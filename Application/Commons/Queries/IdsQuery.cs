@@ -12,7 +12,7 @@ namespace Application.Commons.Queries
         public int? Id { get; set; }
         public List<int>? Ids { get; set; }
 
-        public void Mapping(Profile profile)
+        public virtual void Mapping(Profile profile)
         {
             profile.CreateMap<IdRouteRequestParam, IdsQuery>()
                 .ForMember(d => d.Id, m => m.MapFrom(o => o.Id));

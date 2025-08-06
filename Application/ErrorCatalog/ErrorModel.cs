@@ -1,4 +1,4 @@
-﻿namespace Application.ErrorsCatalog
+﻿namespace Application.ErrorCatalog
 {
     public class ErrorModel
     {

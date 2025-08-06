@@ -1,4 +1,4 @@
-﻿namespace Application.ErrorsCatalog
+﻿namespace Application.ErrorCatalog
 {
     public static class ErrorConstants
     {
