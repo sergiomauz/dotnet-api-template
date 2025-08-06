@@ -17,6 +17,7 @@ COPY ["Application/Application.csproj", "Application/"]
 COPY ["Commons/Commons.csproj", "Commons/"]
 COPY ["Domain/Domain.csproj", "Domain/"]
 COPY ["Persistence/Persistence.csproj", "Persistence/"]
+COPY ["ExternalServices/ExternalServices.csproj", "ExternalServices/"]
 RUN dotnet restore "./Api/Api.csproj"
 COPY . .
 WORKDIR "/src/Api"

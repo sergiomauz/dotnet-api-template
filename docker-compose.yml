@@ -1,25 +1,21 @@
 services:
   dotnet_api:
-    image: ${DOCKER_REGISTRY-}talentsschoolapi
+    image: ${DOCKER_REGISTRY-}dotnetapi
     build:
       context: .
       dockerfile: Api/Dockerfile
     depends_on:
       db_dev:
         condition: service_healthy
-    networks:
-      - api_network
 
   db_dev:
     image: mcr.microsoft.com/mssql/server:2019-latest
     container_name: db_dev
-    networks:
-      - api_network
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=MyPass*123456
-    ports:
-      - 1433:1433
+    # ports:
+    #   - 1433:1433
     volumes:
       - ./SQL-Server/data:/var/opt/mssql/data
       - ./SQL-Server/log:/var/opt/mssql/log
@@ -27,9 +23,4 @@ services:
       test: ["CMD", "/opt/mssql-tools18/bin/sqlcmd", "-S", "localhost", "-U", "sa", "-P", "MyPass*123456", "-Q", "SELECT 1", "-C"]
       interval: 5s
       timeout: 3s
-      retries: 30 
-
-networks:  
-  api_network:
-    name: api_network
-    driver: bridge
+      retries: 30
