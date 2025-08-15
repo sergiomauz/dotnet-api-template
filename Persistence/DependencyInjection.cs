@@ -1,7 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Persistence.Repositories;
 using Application.Infrastructure.Persistence;
 
 
@@ -25,22 +24,6 @@ namespace Persistence
 
             // Add db transactions
             services.AddScoped<IDatabaseTransaction, DatabaseTransaction>();
-
-            //
-            services.AddTransient<ITeachersRepository, TeachersRepository>();
-            services.AddTransient<TeachersRepository>();
-
-            //
-            services.AddTransient<IStudentsRepository, StudentsRepository>();
-            services.AddTransient<StudentsRepository>();
-
-            //
-            services.AddTransient<ICoursesRepository, CoursesRepository>();
-            services.AddTransient<CoursesRepository>();
-
-            //
-            services.AddTransient<IEnrollmentsRepository, EnrollmentsRepository>();
-            services.AddTransient<EnrollmentsRepository>();
 
             //
             return services;
