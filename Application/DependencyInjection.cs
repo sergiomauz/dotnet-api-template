@@ -27,8 +27,9 @@ namespace Application
             services.AddAutoMapper(config =>
             {
                 config.AllowNullCollections = true;
-                config.ShouldMapField = fieldInfo => true;
-            }, execAssembly);
+                config.AllowNullDestinationValues = true;
+                config.AddMaps(execAssembly);
+            });
             services.AddMediatR(config => config.RegisterServicesFromAssembly(execAssembly));
             services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehaviour<,>));
             services.Configure<ApiBehaviorOptions>(options => options.SuppressModelStateInvalidFilter = true);

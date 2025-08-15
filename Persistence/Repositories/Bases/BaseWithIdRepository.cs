@@ -9,7 +9,8 @@ using Application.Infrastructure.Persistence.Bases;
 
 namespace Persistence.Repositories.Bases
 {
-    public abstract class BaseWithIdRepository<T> : IBaseWithIdRepository<T> where T : BaseEntityWithId
+    public abstract class BaseWithIdRepository<T> :
+        IBaseWithIdRepository<T> where T : BaseEntityWithId
     {
         private readonly SqlServerDbContext _sqlServerDbContext;
 
@@ -109,19 +110,6 @@ namespace Persistence.Repositories.Bases
             await _sqlServerDbContext.SaveChangesAsync();
 
             return entry.Entity;
-        }
-
-        public virtual async Task<int> DeleteAsync(int id)
-        {
-            var affectedRows = 0;
-            var entity = await _sqlServerDbContext.Set<T>().SingleOrDefaultAsync(e => e.Id == id);
-            if (entity != null)
-            {
-                _sqlServerDbContext.Set<T>().Remove(entity);
-                affectedRows = await _sqlServerDbContext.SaveChangesAsync();
-            }
-
-            return affectedRows;
         }
 
         public virtual async Task<int> DeleteAsync(List<int> ids)

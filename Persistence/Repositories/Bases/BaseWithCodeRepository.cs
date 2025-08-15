@@ -6,7 +6,7 @@ using Application.Infrastructure.Persistence.Bases;
 namespace Persistence.Repositories.Bases
 {
     public abstract class BaseWithCodeRepository<T> : BaseWithIdRepository<T>, IBaseWithCodeRepository<T>
-        where T : BaseEntityWithCode
+        where T : BaseEntityWithIdAndCode
     {
         private readonly SqlServerDbContext _sqlServerDbContext;
 

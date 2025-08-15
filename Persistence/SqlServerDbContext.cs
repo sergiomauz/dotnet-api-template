@@ -1,4 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Persistence.Mapping;
+using Domain.Entities;
 
 
 namespace Persistence
@@ -11,6 +13,10 @@ namespace Persistence
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            _ = new StudentMap(modelBuilder.Entity<Student>());
+            _ = new TeacherMap(modelBuilder.Entity<Teacher>());
+            _ = new CourseMap(modelBuilder.Entity<Course>());
+            _ = new EnrollmentMap(modelBuilder.Entity<Enrollment>());
         }
     }
 }

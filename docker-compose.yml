@@ -1,21 +1,22 @@
 services:
   dotnet_api:
     image: ${DOCKER_REGISTRY-}dotnetapi
+    container_name: dotnet_api
     build:
       context: .
       dockerfile: Api/Dockerfile
     depends_on:
-      db_dev:
+      ms_sql_db:
         condition: service_healthy
 
-  db_dev:
+  ms_sql_db:
     image: mcr.microsoft.com/mssql/server:2019-latest
-    container_name: db_dev
+    container_name: ms_sql_db
     environment:
       - ACCEPT_EULA=Y
       - MSSQL_SA_PASSWORD=MyPass*123456
-    # ports:
-    #   - 1433:1433
+    ports:
+      - 1433:1433
     volumes:
       - ./SQL-Server/data:/var/opt/mssql/data
       - ./SQL-Server/log:/var/opt/mssql/log

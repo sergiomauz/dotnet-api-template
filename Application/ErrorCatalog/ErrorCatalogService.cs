@@ -7,7 +7,7 @@ namespace Application.ErrorCatalog
 {
     public interface IErrorCatalogService
     {
-        ErrorModel? GetErrorByCode(CodePropertyNamePair codePropertyNamePair);
+        ErrorModel? GetErrorByCode(ErrorTuple errorTuple);
     }
 
     public class ErrorCatalogService : IErrorCatalogService
@@ -24,7 +24,7 @@ namespace Application.ErrorCatalog
                 connection.Open();
                 using (var command = connection.CreateCommand())
                 {
-                    command.CommandText = "SELECT ErrorCode, ErrorMessage, PropertyName FROM ErrorsCatalog";
+                    command.CommandText = "SELECT ErrorCode, ErrorMessage, PropertyName FROM ErrorCatalog";
                     _errors = new Dictionary<string, ErrorModel>();
                     using (var reader = command.ExecuteReader())
                     {
@@ -43,9 +43,9 @@ namespace Application.ErrorCatalog
             }
         }
 
-        public ErrorModel? GetErrorByCode(CodePropertyNamePair codePropertyNamePair)
+        public ErrorModel? GetErrorByCode(ErrorTuple errorTuple)
         {
-            var existError = _errors.TryGetValue(codePropertyNamePair.ErrorCode, out var error);
+            var existError = _errors.TryGetValue(errorTuple.ErrorCode, out var error);
             if (existError)
             {
                 return error;
@@ -54,8 +54,8 @@ namespace Application.ErrorCatalog
             return new ErrorModel
             {
                 ErrorCode = ErrorConstants.Generic00000,
-                ErrorMessage = "Not documented error",
-                PropertyName = codePropertyNamePair.PropertyName
+                ErrorMessage = $"'{errorTuple.ErrorCode}': Not documented",
+                PropertyName = errorTuple.PropertyName
             };
         }
     }

@@ -1,4 +1,4 @@
-﻿namespace UnitAndIntegrationTests
+﻿namespace ApplicationTests
 {
     public class UnitTest1
     {
