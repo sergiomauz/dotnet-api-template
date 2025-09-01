@@ -30,24 +30,24 @@ namespace Persistence.Repositories.Bases
             return connection;
         }
 
-        public string ConvertOperatorToSQL(FilterOperator op)
+        public string ConvertOperatorToSQL(FilterOperator filterOperator)
         {
-            if (op == FilterOperator.Contains || op == FilterOperator.StartsWith || op == FilterOperator.EndsWith)
+            if (filterOperator == FilterOperator.Contains || filterOperator == FilterOperator.StartsWith || filterOperator == FilterOperator.EndsWith)
             {
                 return "LIKE";
             }
 
-            return op.GetEnumDescription();
+            return filterOperator.GetEnumDescription();
         }
 
-        public string ConvertValueToSQL(FilterOperator op, object? value)
+        public string ConvertValueToSQL(FilterOperator filterOperator, object? filterOperand)
         {
-            if (value == null)
+            if (filterOperand == null)
             {
                 return "NULL";
             }
 
-            if (value is JsonElement json)
+            if (filterOperand is JsonElement json)
             {
                 if (json.ValueKind == JsonValueKind.String)
                 {
@@ -60,15 +60,15 @@ namespace Persistence.Repositories.Bases
                     }
 
                     // For normal strings
-                    if (op == FilterOperator.Contains)
+                    if (filterOperator == FilterOperator.Contains)
                     {
                         return $"'%{str?.Replace("'", "''")}%'";
                     }
-                    else if (op == FilterOperator.StartsWith)
+                    else if (filterOperator == FilterOperator.StartsWith)
                     {
                         return $"'{str?.Replace("'", "''")}%'";
                     }
-                    else if (op == FilterOperator.EndsWith)
+                    else if (filterOperator == FilterOperator.EndsWith)
                     {
                         return $"'%{str?.Replace("'", "''")}'";
                     }
@@ -97,7 +97,7 @@ namespace Persistence.Repositories.Bases
                 }
             }
 
-            return value.ToString() ?? "NULL";
+            return filterOperand.ToString() ?? "NULL";
         }
 
         public virtual async Task<T?> CreateAsync(T entity)
